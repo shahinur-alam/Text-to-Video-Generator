@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-to-Video Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; padding: 20px; }
+        form { margin-bottom: 20px; }
+        input, select { margin-bottom: 10px; }
+        #video-container { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Text-to-Video Generator</h1>
+    <form method="post">
+        <input type="text" name="prompt" placeholder="Enter your video description" required><br>
+        <input type="number" name="num_frames" min="16" max="64" value="16" required> frames (16 frames ≈ 2 seconds)<br>
+        <input type="submit" value="Generate Video">
+    </form>
+
+    {% if video_path %}
+    <div id="video-container">
+        <h2>Generated Video:</h2>
+        <video width="576" height="320" controls>
+            <source src="{{ video_path }}" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <br>
+        <a href="{{ url_for('download_file', filename=video_path) }}">Download Video</a>
+    </div>
+    {% endif %}
+</body>
+</html>
